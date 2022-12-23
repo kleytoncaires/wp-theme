@@ -1,0 +1,52 @@
+jQuery('#menu_name').val(jQuery('#menu_name').val() + "X");
+jQuery('#all_items').val(jQuery('#all_items').val() + "Todos os itens");
+jQuery('#add_new').val(jQuery('#add_new').val() + "Adicionar novo");
+jQuery('#add_new_item').val(jQuery('#add_new_item').val() + "Adicionar novo item");
+jQuery('#edit_item').val(jQuery('#edit_item').val() + "Editar item");
+jQuery('#new_item').val(jQuery('#new_item').val() + "Novo item");
+jQuery('#view_item').val(jQuery('#view_item').val() + "Ver item");
+jQuery('#view_items').val(jQuery('#view_items').val() + "Ver itens");
+jQuery('#search_items').val(jQuery('#search_items').val() + "Procurar item");
+jQuery('#not_found').val(jQuery('#not_found').val() + "Nenhum item encontrado");
+jQuery('#not_found_in_trash').val(jQuery('#not_found_in_trash').val() + "Nenhum item encontrado na lixeira");
+jQuery('#parent').val(jQuery('#parent').val() + "Item ascendente");
+jQuery('#featured_image').val(jQuery('#featured_image').val() + "Imagem destacada");
+jQuery('#set_featured_image').val(jQuery('#set_featured_image').val() + "Definir imagem destacada");
+jQuery('#remove_featured_image').val(jQuery('#remove_featured_image').val() + "Remover imagem destacada");
+jQuery('#use_featured_image').val(jQuery('#use_featured_image').val() + "Usar imagem destacada");
+jQuery('#archives').val(jQuery('#archives').val() + "Arquivos");
+jQuery('#insert_into_item').val(jQuery('#insert_into_item').val() + "Insira neste item");
+jQuery('#uploaded_to_this_item').val(jQuery('#uploaded_to_this_item').val() + "Enviado para este item");
+jQuery('#filter_items_list').val(jQuery('#filter_items_list').val() + "Filtrar lista de itens");
+jQuery('#items_list_navigation').val(jQuery('#items_list_navigation').val() + "Navegação na lista de itens");
+jQuery('#items_list').val(jQuery('#items_list').val() + "Lista de itens");
+jQuery('#attributes').val(jQuery('#attributes').val() + "Atributos");
+jQuery('#name_admin_bar').val(jQuery('#name_admin_bar').val() + "X");
+jQuery('#item_published').val(jQuery('#item_published').val() + "Item publicado");
+jQuery('#item_published_privately').val(jQuery('#item_published_privately').val() + "Item publicado em particular");
+jQuery('#item_reverted_to_draft').val(jQuery('#item_reverted_to_draft').val() + "Item revertido para rascunho");
+jQuery('#item_scheduled').val(jQuery('#item_scheduled').val() + "Item agendado");
+jQuery('#item_updated').val(jQuery('#item_updated').val() + "Item atualizado");
+
+
+
+
+
+jQuery('#menu_name').val(jQuery('#menu_name').val() + "X");
+jQuery('#all_items').val(jQuery('#all_items').val() + "Todos os itens");
+jQuery('#edit_item').val(jQuery('#edit_item').val() + "Editar item");
+jQuery('#view_item').val(jQuery('#view_item').val() + "Ver item");
+jQuery('#update_item').val(jQuery('#update_item').val() + "Atualizar item");
+jQuery('#add_new_item').val(jQuery('#add_new_item').val() + "Adicionar novo item");
+jQuery('#new_item_name').val(jQuery('#new_item_name').val() + "Novo item");
+jQuery('#parent_item').val(jQuery('#parent_item').val() + "Item ascendente");
+jQuery('#parent_item_colon').val(jQuery('#parent_item_colon').val() + "Item ascendente:");
+jQuery('#search_items').val(jQuery('#search_items').val() + "Pesquisar item");
+jQuery('#popular_items').val(jQuery('#popular_items').val() + "Itens populares");
+jQuery('#separate_items_with_commas').val(jQuery('#separate_items_with_commas').val() + "Separar itens com vírgulas");
+jQuery('#add_or_remove_items').val(jQuery('#add_or_remove_items').val() + "Adicionar ou excluir itens");
+jQuery('#choose_from_most_used').val(jQuery('#choose_from_most_used').val() + "Escolher entre os mais usados");
+jQuery('#not_found').val(jQuery('#not_found').val() + "Nenhum item encontrado");
+jQuery('#no_terms').val(jQuery('#no_terms').val() + "Nenhum item");
+jQuery('#items_list_navigation').val(jQuery('#items_list_navigation').val() + "Navegação da lista de itens");
+jQuery('#items_list').val(jQuery('#items_list').val() + "Lista de itens");
