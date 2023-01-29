@@ -44,6 +44,6 @@ function add_slug_to_body_class($classes)
 function inc_styles()
 {
     //wp_enqueue_style('style', get_stylesheet_uri());
-    wp_enqueue_style('main', get_template_directory_uri() . '/style.min.css', array(), filemtime(get_template_directory() . '/style.min.css'), false);
+    wp_enqueue_style('main', get_template_directory_uri() . '/style.css', array(), filemtime(get_template_directory() . '/style.css'), false);
 }
 add_action('wp_enqueue_scripts', 'inc_styles');

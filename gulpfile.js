@@ -1,30 +1,26 @@
-// Initialize modules
 const themeName = 'theme-name';
-// Importing specific gulp API functions lets us write them below as series() instead of gulp.series()
-const { src, dest, watch, series, parallel } = require('gulp');
-// Importing all the Gulp-related packages we want to use
+const gulp = require('gulp');
+const { parallel, series } = require('gulp');
+
+const uglify = require('gulp-uglify');
 const sass = require('gulp-sass')(require('sass'));
 const concat = require('gulp-concat');
-const terser = require('gulp-terser');
-const postcss = require('gulp-postcss');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
-const imagemin = require('gulp-imagemin');
-const notify = require('gulp-notify');
+const autoprefixer = require('gulp-autoprefixer');
+const babel = require('gulp-babel');
 const wpPot = require('gulp-wp-pot');
 const sort = require('gulp-sort');
 
-// File paths
-const files = {
-	scssPath: 'assets/css/**/*.scss',
-	jsPath: 'assets/js/**/*.js',
-	imgPath: 'assets/img/**/*.{jpg,jpeg,png,svg,gif}',
-	imgDest: 'assets/img/',
-	phpSrc: './**/*.php',
-};
+// /*
+// TOP LEVEL FUNCTIONS
+//     gulp.task = Define tasks
+//     gulp.src = Point to files to use
+//     gulp.dest = Points to the folder to output
+//     gulp.watch = Watch files and folders for changes
+// */
 
 // Tranlate Settings
 translateOpts = {
+	phpSrc: './**/*.php',
 	textDomain: themeName,
 	destFile: themeName + '.pot',
 	destDir: './languages',
@@ -34,64 +30,37 @@ translateOpts = {
 	team: 'Caires Digital',
 };
 
-// Autoprefixer Settings
-autoPrefixerOpts = [
-	'last 2 version',
-	'> 1%',
-	'ie >= 9',
-	'ie_mob >= 10',
-	'ff >= 30',
-	'chrome >= 34',
-	'safari >= 7',
-	'opera >= 23',
-	'ios >= 7',
-	'android >= 4',
-	'bb >= 10',
-];
-
-// Sass task: compiles the style.scss file into style.css
-function scssTask() {
-	return src(files.scssPath, { sourcemaps: true }) // set source and turn on sourcemaps
-		.pipe(sass()) // compile SCSS to CSS
-		.pipe(postcss([autoprefixer(autoPrefixerOpts), cssnano()])) // PostCSS plugins
-		.pipe(dest('./', { sourcemaps: '.' })) // put final CSS in dist folder with sourcemap
-		.pipe(notify({ message: 'TASK: CSS Completed! ✅💯', onLast: true }));
-}
-
 // JS task: concatenates and uglifies JS files to script.js
-function jsTask() {
-	return src(
-		[
-			files.jsPath,
-			//,'!' + 'includes/js/jquery.min.js', // to exclude any specific files
-		],
-		{ sourcemaps: true }
-	)
-		.pipe(concat('script.js'))
-		.pipe(terser())
-		.pipe(dest('assets/js/min', { sourcemaps: '.' }))
-		.pipe(notify({ message: 'TASK: JS Completed! ✅💯', onLast: true }));
-}
-
-// IMG task: compress images
-function imgTask() {
-	return src(files.imgPath)
+function js(cb) {
+	gulp.src('assets/js/*js', { sourcemaps: true })
 		.pipe(
-			imagemin({
-				progressive: true,
-				optimizationLevel: 3, // 0-7 low-high
-				interlaced: true,
-				svgoPlugins: [{ removeViewBox: false }],
+			babel({
+				presets: ['@babel/preset-env'],
 			})
 		)
-		.pipe(dest(files.imgDest))
-		.pipe(
-			notify({ message: 'TASK: Images Completed! ✅💯', onLast: true })
-		);
+		.pipe(concat('script.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('./', { sourcemaps: '.' }));
+	cb();
 }
 
-function translateTask() {
-	return src(files.phpSrc)
+// SCSS task: compiles the style.scss file into style.css
+function css(cb) {
+	gulp.src('assets/css/*.scss', { sourcemaps: true })
+		.pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+		.pipe(
+			autoprefixer({
+				browserlist: ['last 2 versions'],
+				cascade: false,
+			})
+		)
+		.pipe(gulp.dest('./', { sourcemaps: '.' }));
+	cb();
+}
+
+// Translate
+function translate(cb) {
+	gulp.src(translateOpts.phpSrc)
 		.pipe(sort())
 		.pipe(
 			wpPot({
@@ -102,29 +71,18 @@ function translateTask() {
 				team: translateOpts.team,
 			})
 		)
-		.pipe(dest(translateOpts.destDir + '/' + translateOpts.destFile))
-		.pipe(
-			notify({
-				message: 'TASK: Translation Completed! ✅💯',
-				onLast: true,
-			})
-		);
+		.pipe(gulp.dest(translateOpts.destDir + '/' + translateOpts.destFile));
+	cb();
 }
 
-// Watch task: watch SCSS and JS files for changes
-// If any change, run scss and js tasks simultaneously
-function watchTask() {
-	watch(
-		[files.scssPath, files.jsPath, files.imgPath],
-		{ interval: 1000, usePolling: true }, //Makes docker work
-		series(parallel(scssTask, jsTask, imgTask, translateTask))
-	);
+// Watch Files
+function watchFiles() {
+	gulp.watch('assets/css/**/*.scss', css);
+	gulp.watch('assets/js/*.js', js);
 }
 
-// Export the default Gulp task so it can be run
-// Runs the scss and js tasks simultaneously
-// then runs cacheBust, then watch task
-exports.default = series(
-	parallel(scssTask, jsTask, imgTask, translateTask),
-	watchTask
-);
+// Default 'gulp' command with start local server and watch files for changes.
+exports.default = series(css, js, watchFiles);
+
+// 'gulp build' will build all assets but not run on a local server.
+exports.build = parallel(css, js, translate);
