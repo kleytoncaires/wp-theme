@@ -21,34 +21,15 @@ add_filter('wpseo_metabox_prio', 'yoasttobottom');
  */
 function ea_social_links()
 {
-
 	$options = array(
-
-		// FONT AWESOME
-		'facebook'         => array(
-			'key'         => 'facebook_site',
+		'facebook'   => array(
+			'key'  => 'facebook_site',
 			'icon'         => '<i class="fa-brands fa-facebook-f"></i>',
 		),
-		'twitter'         => array(
-			'key'         => 'twitter_site',
-			'prepend'     => 'https://twitter.com/',
-			'icon'         => '<i class="fa-brands fa-twitter"></i>',
-		),
-		'linkedin'         => array(
-			'key'         => 'linkedin_url',
-			'icon'         => '<i class="fa-brands fa-linkedin-in"></i>',
-		),
-		'youtube'         => array(
-			'key'         => 'youtube_url',
-			'icon'         => '<i class="fa-brands fa-youtube"></i>',
-		),
-		'instagram'     => array(
-			'key'         => 'instagram_url',
-			'icon'         => '<i class="fa-brands fa-instagram"></i>',
-		),
-		'pinterest'     => array(
-			'key'         => 'pinterest_url',
-			'icon'         => '<i class="fa-brands fa-pinterest-p"></i>',
+		'twitter'    => array(
+			'key'     => 'twitter_site',
+			'prepend' => 'https://twitter.com/',
+			'icon'    => '<i class="fa-brands fa-twitter"></i>',
 		),
 	);
 
@@ -59,32 +40,43 @@ function ea_social_links()
 	$seo_data = get_option('wpseo_social');
 
 	foreach ($options as $social => $settings) {
-
 		$url = !empty($seo_data[$settings['key']]) ? $seo_data[$settings['key']] : false;
+
 		if (!empty($url) && !empty($settings['prepend']))
 			$url = $settings['prepend'] . $url;
 
-		if ($url && !empty($settings['icon']))
-			$output[] = '<a href="' . esc_url_raw($url) . '" target="_blank" rel="noopener">' . $settings['icon'] . '<span class="sr-only sr-only-focusable">' . $social . '</span></a>';
+		if ($url && !empty($settings['icon'])) {
+			$output[] = '<a href="' . esc_url_raw($url) . '" target="_blank" rel="noopener">' . $settings['icon'] . '<span class="visually-hidden">' . $social . '</span></a>';
+		} elseif ($url) {
+			$output[] = '<a href="' . esc_url_raw($url) . '" target="_blank" rel="noopener">' . $social . '</a>';
+		}
 	}
 
-	// foreach ($seo_data['other_social_urls'] as $link) {
+	foreach ($seo_data['other_social_urls'] as $social => $url) {
+		$icon = '';
 
-	// 	if (stripos($link, "youtube") !== false) {
-	// 		$output[] = '<a href="' . esc_url_raw($link) . '" target="_blank" rel="noopener"><i class="fa-brands fa-youtube"></i><span class="sr-only sr-only-focusable">Youtube</span></a>';
-	// 	}
+		if (stripos($url, 'whatsapp') !== false) {
+			$icon = '<i class="fa-brands fa-whatsapp"></i>';
+		} elseif (stripos($url, 'linkedin') !== false) {
+			$icon = '<i class="fa-brands fa-linkedin-in"></i>';
+		} elseif (stripos($url, 'instagram') !== false) {
+			$icon = '<i class="fa-brands fa-instagram"></i>';
+		} elseif (stripos($url, 'youtube') !== false) {
+			$icon = '<i class="fa-brands fa-youtube"></i>';
+		} elseif (stripos($url, 'tiktok') !== false) {
+			$icon = '<i class="fa-brands fa-tiktok"></i>';
+		}
 
-	// 	if (stripos($link, "instagram") !== false) {
-	// 		$output[] = '<a href="' . esc_url_raw($link) . '" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><span class="sr-only sr-only-focusable">Instagram</span></a>';
-	// 	}
+		if (!empty($icon)) {
+			$output[] = '<a href="' . esc_url_raw($url) . '" target="_blank" rel="noopener">' . $icon . '<span class="visually-hidden">' . $social . '</span></a>';
+		} else {
+			$output[] = '<a href="' . esc_url_raw($url) . '" target="_blank" rel="noopener">' . $social . '</a>';
+		}
+	}
 
-	// 	if (stripos($link, "linkedin") !== false) {
-	// 		$output[] = '<a href="' . esc_url_raw($link) . '" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i><span class="sr-only sr-only-focusable">Linkedin</span></a>';
-	// 	}
-	// }
 
 	if (!empty($output))
 		return '<div class="social-links">' . join(' ', $output) . '</div>';
-	//return '<span class="footer-text">' . __('Siga nas redes', 'YSSY') . '</span><div class="social-links">' . join(' ', $output) . '</div>';
 }
+
 add_shortcode('social_links', 'ea_social_links');
