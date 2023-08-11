@@ -18,8 +18,8 @@ function my_acf_json_load_point($paths)
 if (function_exists('acf_add_options_page')) {
 
     acf_add_options_page(array(
-        'page_title'    => 'Ajustes do Tema',
-        'menu_title'    => 'Ajustes do Tema',
+        'page_title'    => 'Central de Informações',
+        'menu_title'    => 'Central de Informações',
         'menu_slug'     => 'about',
         'capability'    => 'edit_posts',
         'redirect'      => false,
@@ -33,6 +33,6 @@ if (function_exists('acf_add_options_page')) {
 // -----------
 function polylang_translate()
 {
-	pll_register_string('back', 'back', 'General');
+    pll_register_string('back', 'back', 'General');
 }
 add_action('init', 'polylang_translate');
