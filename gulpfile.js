@@ -9,6 +9,10 @@ const autoprefixer = require('gulp-autoprefixer');
 const babel = require('gulp-babel');
 const wpPot = require('gulp-wp-pot');
 const sort = require('gulp-sort');
+const path = require('path');
+const fs = require('fs');
+const plumber = require('gulp-plumber'); // Importa o pacote gulp-plumber
+const notify = require('gulp-notify'); // Importa o pacote gulp-notify
 
 // /*
 // TOP LEVEL FUNCTIONS
@@ -32,21 +36,44 @@ translateOpts = {
 
 // JS task: concatenates and uglifies JS files to script.js
 function js(cb) {
-	gulp.src('assets/js/*js', { sourcemaps: true })
-		.pipe(
-			babel({
-				presets: ['@babel/preset-env'],
-			})
-		)
-		.pipe(concat('script.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('./', { sourcemaps: '.' }));
+	const srcPath = 'assets/js';
+	const destPath = './';
+
+	const files = fs
+		.readdirSync(srcPath)
+		.filter((file) => path.extname(file) === '.js');
+
+	files.forEach((file) => {
+		gulp.src(path.join(srcPath, file), { sourcemaps: true })
+			.pipe(
+				plumber({
+					errorHandler: notify.onError(
+						'JS Error: <%= error.message %>'
+					),
+				})
+			) // Usando gulp-plumber
+			.pipe(
+				babel({
+					presets: ['@babel/preset-env'],
+				})
+			)
+			.pipe(concat(file))
+			.pipe(uglify())
+			.pipe(gulp.dest(destPath, { sourcemaps: '.' }));
+		// .pipe(notify({ message: 'JS processed successfully: ' + file }));
+	});
+
 	cb();
 }
 
 // SCSS task: compiles the style.scss file into style.css
 function css(cb) {
 	gulp.src('assets/css/*.scss', { sourcemaps: true })
+		.pipe(
+			plumber({
+				errorHandler: notify.onError('CSS Error: <%= error.message %>'),
+			})
+		) // Usando gulp-plumber
 		.pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
 		.pipe(
 			autoprefixer({
@@ -55,6 +82,8 @@ function css(cb) {
 			})
 		)
 		.pipe(gulp.dest('./', { sourcemaps: '.' }));
+	// .pipe(notify({ message: 'CSS processed successfully' }));
+
 	cb();
 }
 
