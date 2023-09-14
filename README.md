@@ -20,6 +20,7 @@ Gulp WordPress workflow. Kick-start a build-workflow for your WordPress themes w
 
 > -   _Minification/optimization of images_
 > -   _File types: `.png`, `.jpg`, `.jpeg`, `.gif`, `.svg`_
+> -   _Convert images to WEBP_
 
 💯 **TRANSLATION**
 
