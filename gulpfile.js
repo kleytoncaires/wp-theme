@@ -17,6 +17,8 @@ const autoprefixer = require('gulp-autoprefixer')
 const babel = require('gulp-babel')
 const wpPot = require('gulp-wp-pot')
 const sort = require('gulp-sort')
+const ftp = require('vinyl-ftp')
+const rename = require('gulp-rename')
 
 const srcPath = 'assets/js'
 const destPath = './'
@@ -111,7 +113,27 @@ function watchFiles() {
     gulp.watch('assets/js/*.js', js)
 }
 
-// Define task dependencies explicitly
+const conn = ftp.create({
+    host: 'ftp.example.com',
+    user: 'seu-usuario',
+    password: 'sua-senha',
+    parallel: 10,
+    log: console.log,
+})
+
+function deploy() {
+    return gulp
+        .src(['**', '!node_modules/**'])
+        .pipe(
+            rename((path) => {
+                path.dirname = path.dirname.replace(/\\/g, '/')
+            })
+        )
+        .pipe(conn.dest('/caminho/para/o/diretorio/no/servidor/ftp'))
+}
+
 exports.default = series(translate, parallel(css, js), watchFiles)
 
 exports.build = parallel(css, js, translate, optimizeImages, convertToWebP)
+
+exports.deploy = deploy
