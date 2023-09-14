@@ -2,12 +2,13 @@ const themeName = 'theme-name'
 
 const gulp = require('gulp')
 const { parallel, series } = require('gulp')
+require('dotenv').config()
 const plumber = require('gulp-plumber')
 const notify = require('gulp-notify')
 const fs = require('fs')
 const path = require('path')
-require('dotenv').config()
 
+const webp = require('gulp-webp')
 const tinypng = require('gulp-tinypng-compress')
 const uglify = require('gulp-uglify')
 const sass = require('gulp-sass')(require('sass'))
@@ -98,6 +99,13 @@ function optimizeImages() {
         .pipe(gulp.dest('assets/img'))
 }
 
+function convertToWebP() {
+    return gulp
+        .src('assets/img/**/*.+(jpg|jpeg|png)')
+        .pipe(webp())
+        .pipe(gulp.dest('assets/img/webp'))
+}
+
 function watchFiles() {
     gulp.watch('assets/css/**/*.scss', css)
     gulp.watch('assets/js/*.js', js)
@@ -106,4 +114,4 @@ function watchFiles() {
 // Define task dependencies explicitly
 exports.default = series(translate, parallel(css, js), watchFiles)
 
-exports.build = parallel(css, js, translate, optimizeImages)
+exports.build = parallel(css, js, translate, optimizeImages, convertToWebP)

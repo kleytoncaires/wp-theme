@@ -29,6 +29,7 @@
         "gulp-tinypng-compress": "^1.2.5",
         "gulp-uglify": "^3.0.2",
         "gulp-watch": "^5.0.1",
+        "gulp-webp": "^4.0.1",
         "gulp-wp-pot": "^2.5.0",
         "lodash": "^4.17.21",
         "lodash.mergewith": "^4.6.2",
