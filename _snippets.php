@@ -35,27 +35,27 @@ function get_cache_prevent_string($always = false)
 ?>
 <?php
 $args = array(
-    'post_type'         => 'post-type',
-    'post_status'       => 'publish',
-    'posts_per_page'    =>  -1,
-    'orderby'           => 'post_date',
-    'order'             => 'desc',
+    'post_type'      => 'post-type',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'orderby'        => 'post_date',
+    'order'          => 'desc',
 );
 
-$posts = query_posts($args);
+$posts_query = new WP_Query($args);
 ?>
 
-<?php if (have_posts()) : ?>
-    <?php foreach ($posts as $post) : setup_postdata($post); ?>
+<?php if ($posts_query->have_posts()) : ?>
+    <?php while ($posts_query->have_posts()) : $posts_query->the_post(); ?>
         <?php the_title(); ?>
         <?php the_content(); ?>
         <?php if (has_post_thumbnail()) : ?>
             <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
         <?php endif; ?>
-    <?php endforeach; ?>
+    <?php endwhile; ?>
 <?php endif; ?>
 
-<?php wp_reset_query(); ?>
+<?php wp_reset_postdata(); ?>
 
 <? // page query 
 ?>
@@ -66,11 +66,11 @@ $args = array(
     'pagename'       => 'contato',
 );
 
-$posts = query_posts($args);
+$posts_query = new WP_Query($args);
 ?>
 
-<?php if (have_posts()) : ?>
-    <?php while (have_posts()) : the_post(); ?>
+<?php if ($posts_query->have_posts()) : ?>
+    <?php while ($posts_query->have_posts()) : $posts_query->the_post(); ?>
         <?php the_title(); ?>
         <?php the_content(); ?>
         <?php if (has_post_thumbnail()) : ?>
@@ -79,24 +79,7 @@ $posts = query_posts($args);
     <?php endwhile; ?>
 <?php endif; ?>
 
-<?php wp_reset_query(); ?>
-
-<? // mod
-?>
-<div class="row">
-    <?php $cont = 0; ?>
-    <?php foreach ($posts as $post) : setup_postdata($post); ?>
-        <?php if ($cont == 2) {
-            echo "<div class='w-100'></div>";
-            $cont = 0;
-        } ?>
-        <div class="col-12">
-
-        </div>
-        <?php $cont++; ?>
-    <?php endforeach; ?>
-</div>
-
+<?php wp_reset_postdata(); ?>
 
 <? // contact form 7 estados brasileiros 
 ?>
@@ -104,20 +87,21 @@ $posts = query_posts($args);
 
 <? // Video with thumbnail
 ?>
-<?php $link = get_field('url_video'); ?>
-<?php if ($link) : ?>
-    <a href="<?php echo $link ?>" data-fancybox class="institucional-video">
+<?php $yt_link = get_field('url_video'); ?>
+<?php if ($yt_link) : ?>
+    <a href="<?php echo $yt_link ?>" data-fancybox class="video-thumbnail">
         <?php
-        $link = explode("?v=", $link);
+        $link = explode("?v=", $yt_link);
         $link = $link[1];
         $thumbnail = "https://img.youtube.com/vi/" . $link . "/maxresdefault.jpg";
         ?>
-        <div class="institucional-play">
+        <div class="video-play">
             <?php echo file_get_contents(get_template_directory() . '/assets/img/play.svg'); ?>
         </div>
         <img src="<?php echo $thumbnail; ?>" class="w-100">
     </a>
 <?php endif; ?>
+
 
 <? // Translate 
 ?>
