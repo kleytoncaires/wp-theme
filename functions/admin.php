@@ -97,6 +97,37 @@ function my_widget()
 add_action('widgets_init', 'my_widget');
 
 // ----------- 
+// DISPLAY POST EXCERPT BY DEFAULT
+// -----------
+function wpse_edit_post_show_excerpt()
+{
+    $user = wp_get_current_user();
+    $unchecked = get_user_meta($user->ID, 'metaboxhidden_post', true);
+    if (!empty($unchecked)) {
+        $key = array_search('postexcerpt', $unchecked);
+        if (FALSE !== $key) {
+            array_splice($unchecked, $key, 1);
+            update_user_meta($user->ID, 'metaboxhidden_post', $unchecked);
+        }
+    }
+}
+add_action('admin_init', 'wpse_edit_post_show_excerpt', 10);
+
+function show_excerpt_meta_box($hidden, $screen)
+{
+    if ('post' == $screen->base) {
+        foreach ($hidden as $key => $value) {
+            if ('postexcerpt' == $value) {
+                unset($hidden[$key]);
+                break;
+            }
+        }
+    }
+    return $hidden;
+}
+add_filter('default_hidden_meta_boxes', 'show_excerpt_meta_box', 10, 2);
+
+// ----------- 
 // DISABLE SELF PINGBACKS
 // -----------
 function wpsites_disable_self_pingbacks(&$links)
