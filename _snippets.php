@@ -35,7 +35,7 @@ function get_cache_prevent_string($always = false)
 ?>
 <?php
 $args = array(
-    'post_type'      => 'post-type',
+    'post_type'      => '', // CHANGE
     'post_status'    => 'publish',
     'posts_per_page' => -1,
     'orderby'        => 'post_date',
@@ -63,7 +63,7 @@ $posts_query = new WP_Query($args);
 <?php
 $args = array(
     'post_type'      => 'page',
-    'pagename'       => 'contato',
+    'pagename'       => '', // CHANGE
 );
 
 $posts_query = new WP_Query($args);
