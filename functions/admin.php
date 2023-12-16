@@ -155,6 +155,32 @@ add_action('do_feed_atom', 'itsme_disable_feed', 1);
 add_action('do_feed_rss2_comments', 'itsme_disable_feed', 1);
 add_action('do_feed_atom_comments', 'itsme_disable_feed', 1);
 
+
+
+// ----------- 
+// SET DEFAULT LANGUAGE
+// -----------
+// Configuração do idioma para português do Brasil
+function set_language()
+{
+    load_theme_textdomain('default', get_template_directory() . '/languages');
+    $locale = 'pt_BR';
+    setlocale(LC_ALL, $locale);
+    add_filter('locale', function () use ($locale) {
+        return $locale;
+    });
+}
+add_action('after_setup_theme', 'set_language');
+
+// ----------- 
+// SET DEFAULT TIMEZONE
+// -----------
+function set_timezone()
+{
+    date_default_timezone_set('America/Sao_Paulo');
+}
+add_action('after_setup_theme', 'set_timezone');
+
 // ----------- 
 // CUSTOM ADMIN LOGO
 // -----------
@@ -163,7 +189,7 @@ function my_login_logo()
     <style type="text/css">
         #login,
         .login {
-            background-color: #3d1ca2;
+            background-color: #fff;
         }
 
         #login h1 a,
@@ -178,7 +204,7 @@ function my_login_logo()
 
         .login #backtoblog a,
         .login #nav a {
-            color: #fff !important;
+            color: #000 !important;
         }
     </style>
 <?php }
