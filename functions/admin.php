@@ -156,31 +156,6 @@ add_action('do_feed_rss2_comments', 'itsme_disable_feed', 1);
 add_action('do_feed_atom_comments', 'itsme_disable_feed', 1);
 
 
-
-// ----------- 
-// SET DEFAULT LANGUAGE
-// -----------
-// Configuração do idioma para português do Brasil
-function set_language()
-{
-    load_theme_textdomain('default', get_template_directory() . '/languages');
-    $locale = 'pt_BR';
-    setlocale(LC_ALL, $locale);
-    add_filter('locale', function () use ($locale) {
-        return $locale;
-    });
-}
-add_action('after_setup_theme', 'set_language');
-
-// ----------- 
-// SET DEFAULT TIMEZONE
-// -----------
-function set_timezone()
-{
-    date_default_timezone_set('America/Sao_Paulo');
-}
-add_action('after_setup_theme', 'set_timezone');
-
 // ----------- 
 // CUSTOM ADMIN LOGO
 // -----------
