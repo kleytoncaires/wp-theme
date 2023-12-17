@@ -1,4 +1,4 @@
-const themeName = 'theme-name'
+const themeName = 'caires-digital'
 
 const gulp = require('gulp')
 const { parallel, series } = require('gulp')
@@ -140,7 +140,5 @@ function deploy() {
 }
 
 exports.default = series(translate, parallel(css, js), watchFiles)
-
 exports.build = parallel(css, js, translate, optimizeImages, convertToWebP)
-
 exports.deploy = deploy

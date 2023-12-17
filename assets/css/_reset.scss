@@ -1,32 +1,3 @@
-// Floating Images
-
-img {
-    &.alignright {
-        float: right;
-        margin: 0 0 1em 1em;
-    }
-    &.alignleft {
-        float: left;
-        margin: 0 1em 1em 0;
-    }
-    &.aligncenter {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-.alignright {
-    float: right;
-}
-.alignleft {
-    float: left;
-}
-.aligncenter {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 // Forms
 
 input:-webkit-autofill {
@@ -42,7 +13,7 @@ input:-webkit-autofill {
 
 // Links
 
-a[href^="tel"] {
+a[href^='tel'] {
     color: inherit;
     text-decoration: none;
 }

@@ -31,8 +31,8 @@ if (function_exists('acf_add_options_page')) {
 // -----------
 // POLYLANG TRANSLATE
 // -----------
-function polylang_translate()
-{
-    pll_register_string('back', 'back', 'General');
-}
-add_action('init', 'polylang_translate');
+// function polylang_translate()
+// {
+//     pll_register_string('back', 'back', 'General');
+// }
+// add_action('init', 'polylang_translate');
