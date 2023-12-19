@@ -1,8 +1,22 @@
 .background-cover {
-	background-size: cover;
-	background-position: top center;
+    background-size: cover;
+    background-position: center;
 }
 .background-contain {
-	background-size: contain;
-	background-position: top center;
+    background-size: contain;
+    background-position: center;
 }
+.background-no-repeat {
+    background-repeat: no-repeat;
+}
+
+@mixin generate-color-classes($color-variable, $color-name) {
+    .background-#{$color-name} {
+        background-color: $color-variable;
+    }
+    .color-#{$color-name} {
+        color: $color-variable;
+    }
+}
+
+@include generate-color-classes($color-red, 'red');

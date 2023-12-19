@@ -34,9 +34,9 @@ function prefix_bs5_dropdown_data_attribute($atts, $item, $args)
 // -----------
 function clean($string)
 {
-    $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+	$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
 
-    return preg_replace('/[^a-zA-Z0-9]+/', '', $string); // Removes special chars.
+	return preg_replace('/[^a-zA-Z0-9]+/', '', $string); // Removes special chars.
 }
 
 // -----------
@@ -44,7 +44,7 @@ function clean($string)
 // -----------
 function add_excerpt_to_pages()
 {
-    add_post_type_support('page', 'excerpt');
+	add_post_type_support('page', 'excerpt');
 }
 add_action('init', 'add_excerpt_to_pages');
 
@@ -53,16 +53,15 @@ add_action('init', 'add_excerpt_to_pages');
 // -----------
 function custom_excerpt_length($length)
 {
-    return 25;
+	return 25;
 }
 add_filter('excerpt_length', 'custom_excerpt_length', 999);
 
 // -----------
 // CHANGE MORE EXCERPT
 // -----------
-function custom_more_excerpt($more)
-{
-    return '...';
-}
-add_filter('excerpt_more', 'custom_more_excerpt');
-
+// function custom_more_excerpt($more)
+// {
+//     return '...';
+// }
+// add_filter('excerpt_more', 'custom_more_excerpt');

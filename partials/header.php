@@ -1,6 +1,6 @@
-<div id="stickyMenuTop" style="height: 1px;"></div>
-<header class="headerMenu shadow" id="headerBar">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light p-0">
+<div id="sticky-menu-top" style="height: 1px;"></div>
+<header class="header-menu shadow" id="header-bar">
+	<nav class="navbar navbar-expand-lg navbar-light p-0">
 		<div class="container">
 			<a class="navbar-brand" href="<?php echo site_url(); ?>">
 				<img src="<?php echo get_template_directory_uri(); ?>/assets/img/logo.svg" alt="<?php echo get_bloginfo('name'); ?>">

@@ -82,19 +82,19 @@ add_filter('nav_menu_css_class', 'add_menu_list_item_class', 1, 3);
 // ----------- 
 // REGISTER WIDGETS
 // -----------
-function my_widget()
-{
-    register_sidebar(array(
-        'name' => __('Sidebar', 'yourtheme'),
-        'id' => 'sidebar',
-        'description' => __('This is description', 'yourtheme'),
-        'before_widget' => '<aside>',
-        'after_widget' => '</aside>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>',
-    ));
-}
-add_action('widgets_init', 'my_widget');
+// function my_widget()
+// {
+//     register_sidebar(array(
+//         'name' => __('Sidebar', 'yourtheme'),
+//         'id' => 'sidebar',
+//         'description' => __('This is description', 'yourtheme'),
+//         'before_widget' => '<aside>',
+//         'after_widget' => '</aside>',
+//         'before_title' => '<h3>',
+//         'after_title' => '</h3>',
+//     ));
+// }
+// add_action('widgets_init', 'my_widget');
 
 // ----------- 
 // DISPLAY POST EXCERPT BY DEFAULT

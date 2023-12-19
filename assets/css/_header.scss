@@ -1,31 +1,30 @@
-.headerMenu {
-	background-color: $white;
-	position: sticky;
-	left: 0;
-	transition: 0.3s;
-	top: 0;
-	width: 100%;
-	z-index: 20;
+.header-menu {
+    background-color: $white;
+    position: sticky;
+    left: 0;
+    transition: 0.3s;
+    top: 0;
+    width: 100%;
+    z-index: 20;
 
-	&.sticky {
-		
-	}
+    &.sticky {
+    }
 }
 .navbar-brand {
-	img {
-		display: block;
-		width: 160px;
-	}
+    img {
+        display: block;
+        width: 160px;
+    }
 }
 .navbar-light {
-	.navbar-toggler {
-		border: 0;
+    .navbar-toggler {
+        border: 0;
 
-		&:hover,
-		&:focus,
-		&.active {
-			box-shadow: none;
-			outline: none;
-		}
-	}
+        &:hover,
+        &:focus,
+        &.active {
+            box-shadow: none;
+            outline: none;
+        }
+    }
 }
