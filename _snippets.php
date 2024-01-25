@@ -34,12 +34,14 @@ function get_cache_prevent_string($always = false)
 <? // foreach query 
 ?>
 <?php
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
     'post_type'      => '', // CHANGE
     'post_status'    => 'publish',
     'posts_per_page' => -1,
     'orderby'        => 'post_date',
     'order'          => 'desc',
+    'paged'          => $paged,
 );
 
 $posts_query = new WP_Query($args);
@@ -53,9 +55,14 @@ $posts_query = new WP_Query($args);
             <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
         <?php endif; ?>
     <?php endwhile; ?>
-<?php endif; ?>
 
-<?php wp_reset_postdata(); ?>
+    <?php
+    echo paginate_links(array(
+        'total'   => $posts_query->max_num_pages,
+        'current' => max(1, get_query_var('paged')),
+    ));
+    ?>
+<?php endif; ?>
 
 <? // page query 
 ?>
