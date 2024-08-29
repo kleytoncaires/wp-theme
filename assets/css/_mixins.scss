@@ -1,0 +1,10 @@
+@mixin generate-color-classes($color-variable, $color-name) {
+    .background-#{$color-name} {
+        background-color: $color-variable;
+    }
+    .color-#{$color-name} {
+        color: $color-variable;
+    }
+}
+
+// @include generate-color-classes($color-red, 'red');
