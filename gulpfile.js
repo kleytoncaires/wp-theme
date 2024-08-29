@@ -1,5 +1,3 @@
-const themeName = 'caires-digital'
-
 const gulp = require('gulp')
 const { parallel, series } = require('gulp')
 require('dotenv').config()
@@ -22,17 +20,6 @@ const rename = require('gulp-rename')
 
 const srcPath = 'assets/js'
 const destPath = './'
-
-const translateOpts = {
-    phpSrc: './**/*.php',
-    textDomain: themeName,
-    destFile: themeName + '.pot',
-    destDir: './languages',
-    packageName: themeName,
-    bugReport: '',
-    lastTranslator: 'Kleyton Caires',
-    team: 'Caires Digital',
-}
 
 function handleErrors() {
     return plumber({
@@ -70,22 +57,6 @@ function css() {
             })
         )
         .pipe(gulp.dest('./', { sourcemaps: '.' }))
-}
-
-function translate() {
-    return gulp
-        .src(translateOpts.phpSrc)
-        .pipe(sort())
-        .pipe(
-            wpPot({
-                domain: translateOpts.textDomain,
-                package: translateOpts.packageName,
-                bugReport: translateOpts.bugReport,
-                lastTranslator: translateOpts.lastTranslator,
-                team: translateOpts.team,
-            })
-        )
-        .pipe(gulp.dest(translateOpts.destDir + '/' + translateOpts.destFile))
 }
 
 function optimizeImages() {
@@ -139,6 +110,6 @@ function deploy() {
         .pipe(conn.dest(process.env.FTP_PATH))
 }
 
-exports.default = series(translate, parallel(css, js), watchFiles)
-exports.build = parallel(css, js, translate, optimizeImages, convertToWebP)
+exports.default = series(parallel(css, js), watchFiles)
+exports.build = parallel(css, js, optimizeImages, convertToWebP)
 exports.deploy = deploy
