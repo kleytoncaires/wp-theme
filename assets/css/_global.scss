@@ -9,3 +9,9 @@
 .background-no-repeat {
     background-repeat: no-repeat;
 }
+
+.remove-last-margin {
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
