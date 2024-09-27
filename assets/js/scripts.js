@@ -62,4 +62,7 @@ $(function () {
 
     // Fancybox
     Fancybox.bind()
+
+    // Aos
+    AOS.init()
 })
