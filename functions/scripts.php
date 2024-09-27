@@ -1,15 +1,6 @@
 <?php
 
 // -----------
-// DISABLE BLOCK LIBRARY
-// -----------
-function wpassist_remove_block_library_css()
-{
-    wp_dequeue_style('wp-block-library');
-}
-add_action('wp_enqueue_scripts', 'wpassist_remove_block_library_css');
-
-// -----------
 // LOAD DASHICONS
 // -----------
 // function ww_load_dashicons()
@@ -91,6 +82,7 @@ function inc_scripts()
     wp_enqueue_script('jQueryMask', 'https://cdn.jsdelivr.net/npm/jquery-mask-plugin@1.14.16/dist/jquery.mask.min.js', array(), '1.14.16', false);
     wp_enqueue_script('fancybox', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.13/dist/fancybox/fancybox.umd.min.js', array(), '5.0.14', false);
     wp_enqueue_script('swiper', 'https://cdn.jsdelivr.net/npm/swiper@10.1.0/swiper-bundle.min.js', array(), '10.1.0', false);
+    wp_enqueue_script('aos', 'https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.min.js', array(), '2.3.4', false);
 
 
     // wp_enqueue_script('jquery', get_template_directory_uri() . '/node_modules/jquery/dist/jquery.min.js');
