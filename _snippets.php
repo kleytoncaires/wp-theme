@@ -52,7 +52,14 @@ $posts_query = new WP_Query($args);
         <?php the_title(); ?>
         <?php the_content(); ?>
         <?php if (has_post_thumbnail()) : ?>
-            <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
+            <?php
+            $image_args = array(
+                'class' => 'img-fluid',
+                'loading' => 'lazy',
+            );
+
+            the_post_thumbnail('full', $image_args);
+            ?>
         <?php endif; ?>
     <?php endwhile; ?>
 
@@ -81,7 +88,14 @@ $posts_query = new WP_Query($args);
         <?php the_title(); ?>
         <?php the_content(); ?>
         <?php if (has_post_thumbnail()) : ?>
-            <?php the_post_thumbnail('full', array('class' => 'img-fluid')); ?>
+            <?php
+            $image_args = array(
+                'class' => 'img-fluid',
+                'loading' => 'lazy',
+            );
+
+            the_post_thumbnail('full', $image_args);
+            ?>
         <?php endif; ?>
     <?php endwhile; ?>
 <?php endif; ?>
